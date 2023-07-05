@@ -14,6 +14,7 @@
 		E93C440F2A559CEC003724C9 /* UnitTestingBootcampTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93C440E2A559CEC003724C9 /* UnitTestingBootcampTests.swift */; };
 		E93C44192A559CEC003724C9 /* UnitTestingBootcampUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93C44182A559CEC003724C9 /* UnitTestingBootcampUITests.swift */; };
 		E93C441B2A559CEC003724C9 /* UnitTestingBootcampUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93C441A2A559CEC003724C9 /* UnitTestingBootcampUITestsLaunchTests.swift */; };
+		E93C442A2A55A056003724C9 /* UnitTestingBootcampViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93C44292A55A056003724C9 /* UnitTestingBootcampViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		E93C44142A559CEC003724C9 /* UnitTestingBootcampUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTestingBootcampUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E93C44182A559CEC003724C9 /* UnitTestingBootcampUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTestingBootcampUITests.swift; sourceTree = "<group>"; };
 		E93C441A2A559CEC003724C9 /* UnitTestingBootcampUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTestingBootcampUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E93C44292A55A056003724C9 /* UnitTestingBootcampViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTestingBootcampViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +96,9 @@
 		E93C43FC2A559CEB003724C9 /* UnitTestingBootcamp */ = {
 			isa = PBXGroup;
 			children = (
+				E93C44282A55A03C003724C9 /* View */,
+				E93C44272A55A036003724C9 /* ViewModel */,
 				E93C43FD2A559CEB003724C9 /* UnitTestingBootcampApp.swift */,
-				E93C43FF2A559CEB003724C9 /* ContentView.swift */,
 				E93C44012A559CEC003724C9 /* Assets.xcassets */,
 				E93C44032A559CEC003724C9 /* Preview Content */,
 			);
@@ -125,6 +128,22 @@
 				E93C441A2A559CEC003724C9 /* UnitTestingBootcampUITestsLaunchTests.swift */,
 			);
 			path = UnitTestingBootcampUITests;
+			sourceTree = "<group>";
+		};
+		E93C44272A55A036003724C9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E93C44292A55A056003724C9 /* UnitTestingBootcampViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E93C44282A55A03C003724C9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E93C43FF2A559CEB003724C9 /* ContentView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E93C442A2A55A056003724C9 /* UnitTestingBootcampViewModel.swift in Sources */,
 				E93C44002A559CEB003724C9 /* ContentView.swift in Sources */,
 				E93C43FE2A559CEB003724C9 /* UnitTestingBootcampApp.swift in Sources */,
 			);
