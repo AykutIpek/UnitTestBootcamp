@@ -16,7 +16,7 @@ struct ContentView: View {
         _viewModel = StateObject(wrappedValue: UnitTestingBootcampViewModel(isPremium: isPremium))
     }
     
-    var body: some View {
+    var body: some View { 
         VStack {
             Text(viewModel.isPremium.description)
         }

@@ -98,9 +98,8 @@
 			children = (
 				E93C44282A55A03C003724C9 /* View */,
 				E93C44272A55A036003724C9 /* ViewModel */,
-				E93C43FD2A559CEB003724C9 /* UnitTestingBootcampApp.swift */,
-				E93C44012A559CEC003724C9 /* Assets.xcassets */,
 				E93C44032A559CEC003724C9 /* Preview Content */,
+				E93C442B2A55A1D6003724C9 /* Other */,
 			);
 			path = UnitTestingBootcamp;
 			sourceTree = "<group>";
@@ -144,6 +143,15 @@
 				E93C43FF2A559CEB003724C9 /* ContentView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E93C442B2A55A1D6003724C9 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				E93C43FD2A559CEB003724C9 /* UnitTestingBootcampApp.swift */,
+				E93C44012A559CEC003724C9 /* Assets.xcassets */,
+			);
+			path = Other;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
