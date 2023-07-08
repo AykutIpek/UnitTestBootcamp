@@ -142,11 +142,66 @@ final class UnitTestingBootcampTests: XCTestCase {
             itemsArray.append(newItem)
         }
         let randomItem = itemsArray.randomElement() ?? ""
+        XCTAssertFalse(randomItem.isEmpty)
         vm.selectedItem(item: randomItem)
         // Then
         XCTAssertNotNil(vm.selectedItem)
         XCTAssertEqual(vm.selectedItem, randomItem)
     }
     
+    func test_UnitTestingBootcampViewModel_saveItem_shouldThrowError_itemNotFound(){
+        // Given
+        let vm = UnitTestingBootcampViewModel(isPremium: Bool.random())
+        // When
+        let loopCount: Int = Int.random(in: 1..<100)
+        for _ in 0..<loopCount{
+            vm.addItem(item: UUID().uuidString)
+        }
+        // Then
+        XCTAssertThrowsError(try vm.saveItem(item: UUID().uuidString))
+        XCTAssertThrowsError(try vm.saveItem(item: UUID().uuidString), "Should throw item Not Found") { error in
+            let returnedError = error as? UnitTestingBootcampViewModel.DataError
+            XCTAssertEqual(returnedError, UnitTestingBootcampViewModel.DataError.itemNotFound)
+        }
+    }
     
+    func test_UnitTestingBootcampViewModel_saveItem_shouldThrowError_noData(){
+        // Given
+        let vm = UnitTestingBootcampViewModel(isPremium: Bool.random())
+        // When
+        let loopCount: Int = Int.random(in: 1..<100)
+        for _ in 0..<loopCount{
+            vm.addItem(item: UUID().uuidString)
+        }
+        // Then
+        do {
+            try vm.saveItem(item: "")
+        } catch let error {
+            let returnedError = error as? UnitTestingBootcampViewModel.DataError
+            XCTAssertEqual(returnedError, UnitTestingBootcampViewModel.DataError.noData)
+        }
+    }
+    
+    func test_UnitTestingBootcampViewModel_saveItem_shouldSaveItem(){
+        // Given
+        let vm = UnitTestingBootcampViewModel(isPremium: Bool.random())
+        // When
+        let loopCount: Int = Int.random(in: 1..<100)
+        var itemsArray: [String] = []
+        for _ in 0..<loopCount{
+            let newItem = UUID().uuidString
+            vm.addItem(item: newItem)
+            itemsArray.append(newItem)
+        }
+        let randomItem = itemsArray.randomElement() ?? ""
+        XCTAssertFalse(randomItem.isEmpty)
+        
+        // Then
+        XCTAssertNoThrow(try vm.saveItem(item: randomItem))
+        do {
+            try vm.saveItem(item: randomItem)
+        } catch {
+            XCTFail()
+        }
+    }
 }
