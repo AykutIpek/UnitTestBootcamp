@@ -7,15 +7,19 @@
 
 import XCTest
 @testable import UnitTestingBootcamp
+import Combine
 
 final class UnitTestingBootcampTests: XCTestCase {
     
+    var viewModel: UnitTestingBootcampViewModel?
+    var cancellables = Set<AnyCancellable>()
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        viewModel = UnitTestingBootcampViewModel(isPremium: Bool.random())
     }
     
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        viewModel = nil
     }
     
     func test_UnitTestingBootcampViewModel_isPremium_shouldBeTrue(){
@@ -87,6 +91,18 @@ final class UnitTestingBootcampTests: XCTestCase {
     func test_UnitTestingBootcampViewModel_dataArray_shouldNotAddBlankString(){
         // Given
         let vm = UnitTestingBootcampViewModel(isPremium: Bool.random())
+        // When
+        vm.addItem(item: "")
+        // Then
+        XCTAssertTrue(vm.dataArray.isEmpty)
+    }
+    
+    func test_UnitTestingBootcampViewModel_dataArray_shouldNotAddBlankString2(){
+        // Given
+        guard let vm = viewModel else {
+            XCTFail()
+            return
+        }
         // When
         vm.addItem(item: "")
         // Then
@@ -203,5 +219,44 @@ final class UnitTestingBootcampTests: XCTestCase {
         } catch {
             XCTFail()
         }
+    }
+    
+    func test_UnitTestingBootcampViewModel_downloadWithEscaping_shouldReturnItems(){
+        // Given
+        let vm = UnitTestingBootcampViewModel(isPremium: Bool.random())
+        // When
+        let expectatation = XCTestExpectation(description: "Should return items in 3 seconds")
+
+        vm.$dataArray
+            .dropFirst()
+            .sink { returnedItems in
+                expectatation.fulfill()
+            }
+            .store(in: &cancellables)
+
+        vm.downloadWithEscaping()
+        // Then
+        wait(for: [expectatation], timeout: 5)
+        XCTAssertGreaterThan(vm.dataArray.count, 0)
+    }
+    
+    
+    func test_UnitTestingBootcampViewModel_downloadWithCombine_shouldReturnItems(){
+        // Given
+        let vm = UnitTestingBootcampViewModel(isPremium: Bool.random())
+        // When
+        let expectatation = XCTestExpectation(description: "Should return items in a second")
+
+        vm.$dataArray
+            .dropFirst()
+            .sink { returnedItems in
+                expectatation.fulfill()
+            }
+            .store(in: &cancellables)
+
+        vm.downloadWithCombine()
+        // Then
+        wait(for: [expectatation], timeout: 5)
+        XCTAssertGreaterThan(vm.dataArray.count, 0)
     }
 }

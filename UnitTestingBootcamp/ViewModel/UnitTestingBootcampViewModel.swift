@@ -7,18 +7,31 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 
 final class UnitTestingBootcampViewModel: ObservableObject{
+    //MARK: - Properties
     @Published var isPremium: Bool
     @Published var dataArray: [String] = []
     @Published var selectedItem: String? = nil
-    
-    
-    init(isPremium: Bool) {
+    var cancellables = Set<AnyCancellable>()
+    let dataService: NewDataServiceProtocol
+    //MARK: - LifeCycle
+    init(isPremium: Bool, dataService: NewDataServiceProtocol = NewMockDataService(items: nil)) {
         self.isPremium = isPremium
+        self.dataService = dataService
     }
     
+    //MARK: - Enum
+    enum DataError: LocalizedError {
+        case noData
+        case itemNotFound
+    }
+}
+
+//MARK: - Funcs
+extension UnitTestingBootcampViewModel{
     func addItem(item: String){
         guard !item.isEmpty else {return}
         self.dataArray.append(item)
@@ -44,8 +57,20 @@ final class UnitTestingBootcampViewModel: ObservableObject{
         }
     }
     
-    enum DataError: LocalizedError {
-        case noData
-        case itemNotFound
+    func downloadWithEscaping(){
+        dataService.downloadItemsWithEscaping {[weak self] returnedItems in
+            self?.dataArray = returnedItems
+        }
+    }
+    
+    func downloadWithCombine(){
+        dataService.downloadItemsWithCombine()
+            .sink { _ in
+                
+            } receiveValue: {[weak self] returnedItems in
+                self?.dataArray = returnedItems
+            }
+            .store(in: &cancellables)
+
     }
 }
